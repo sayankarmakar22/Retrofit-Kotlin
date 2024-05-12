@@ -25,14 +25,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getData() {
-        RetrofitInstance.apiInstance.getData().enqueue(object : Callback<ApiData?> {
-            override fun onResponse(call: Call<ApiData?>, response: Response<ApiData?>) {
+        RetrofitInstance.apiInstance.getData().enqueue(object : Callback<SmartCare?> {
+            override fun onResponse(call: Call<SmartCare?>, response: Response<SmartCare?>) {
                 val text1 = findViewById<TextView>(R.id.text)
-                text1.text = response.body()?.title
+                text1.text = response.body()?.response?.get(0) ?.address
             }
 
-            override fun onFailure(call: Call<ApiData?>, t: Throwable) {
+            override fun onFailure(call: Call<SmartCare?>, t: Throwable) {
                 Toast.makeText(baseContext,"API CALL FAILED",Toast.LENGTH_SHORT).show()
+
             }
         })
     }
